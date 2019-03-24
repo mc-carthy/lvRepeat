@@ -1,5 +1,10 @@
+function addToSequence()
+    table.insert(sequence, love.math.random(4))
+end
+
 function love.load()
-    sequence = {4, 3, 1, 2, 2, 4}
+    sequence = {}
+    addToSequence()
     current = 1
 end
 
@@ -21,6 +26,9 @@ function love.keypressed(key)
         current = current + 1
         if current > #sequence then
             current = 1
+            addToSequence()
         end
+    else
+        love.load()
     end
 end

@@ -32,7 +32,8 @@ end
 function love.draw()
     local function drawSquare(number, colour, highlightedColour)
         local squareSize = 50
-        if state == 'watch' and flashing and number == sequence[current] then
+        if (state == 'watch' and flashing and number == sequence[current]) or
+            (state == 'repeat' and love.keyboard.isDown(tostring(number))) then
             love.graphics.setColor(highlightedColour)
         else
             love.graphics.setColor(colour)
@@ -52,10 +53,10 @@ function love.draw()
     elseif state == 'gameOver' then
         love.graphics.print('Game over!', 20, 60)
     end
-    love.graphics.print('sequence[current]: ' .. sequence[current], 20, 100)
-    love.graphics.print(table.concat(sequence, ', '), 20, 140)
-    love.graphics.print('state: ' .. state, 20, 180)
-    love.graphics.print('flashing: ' .. tostring(flashing), 20, 220)
+    -- love.graphics.print('sequence[current]: ' .. sequence[current], 20, 100)
+    -- love.graphics.print(table.concat(sequence, ', '), 20, 140)
+    -- love.graphics.print('state: ' .. state, 20, 180)
+    -- love.graphics.print('flashing: ' .. tostring(flashing), 20, 220)
 
 end
 

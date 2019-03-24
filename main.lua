@@ -13,9 +13,22 @@ function love.update(dt)
 end
 
 function love.draw()
-    love.graphics.print(table.concat(sequence, ', '))
-    love.graphics.print(current..'/'..#sequence, 0, 20)
-    love.graphics.print('sequence[current]: '..sequence[current], 0, 40)
+    local function drawSquare(number, color)
+        local squareSize = 50
+        love.graphics.setColor(color)
+        love.graphics.rectangle('fill', squareSize * (number - 1), 0, squareSize, squareSize)
+        love.graphics.setColor(1, 1, 1)        
+        love.graphics.print(number, squareSize * (number - 1) + 19, 14)
+    end
+    
+    drawSquare(1, { 0.2, 0, 0 })
+    drawSquare(2, { 0, 0.2, 0 })
+    drawSquare(3, { 0, 0, 0.2 })
+    drawSquare(4, { 0.2, 0.2, 0 })
+
+    love.graphics.print(current..'/'..#sequence, 20, 60)
+    love.graphics.print('sequence[current]: '..sequence[current], 20, 100)
+    love.graphics.print(table.concat(sequence, ', '), 20, 140)
 end
 
 function love.keypressed(key)

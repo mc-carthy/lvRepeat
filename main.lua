@@ -26,6 +26,12 @@ function love.update(dt)
                 end
             end
         end
+    elseif state == 'toWatch' then
+        timer = timer + dt
+        if timer > 0.5 then
+            timer = 0
+            state = 'watch'
+        end
     end
 end
 
@@ -33,7 +39,7 @@ function love.draw()
     local function drawSquare(number, colour, highlightedColour)
         local squareSize = 50
         if (state == 'watch' and flashing and number == sequence[current]) or
-            (state == 'repeat' and love.keyboard.isDown(tostring(number))) then
+            ((state == 'repeat' or state == 'toWatch') and love.keyboard.isDown(tostring(number))) then
             love.graphics.setColor(highlightedColour)
         else
             love.graphics.setColor(colour)
@@ -70,7 +76,8 @@ function love.keypressed(key)
             if current > #sequence then
                 current = 1
                 addToSequence()
-                state = 'watch'
+                state = 'toWatch'
+                timer = 0
             end
         else
             state = 'gameOver'
